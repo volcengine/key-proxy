@@ -1,0 +1,32 @@
+# Http Server配置
+Http:
+  Address: ":4399" # 代理服务运行地址
+  Tls:
+    Enabled: false # 是否开启HTTPS
+    Address: ":443" # 启动HTTPS时，代理服务运行端口
+    CertFile: "./ssl.crt" # 证书公钥文件
+    KeyFile: "./ssl.key" # 私钥文件
+
+# 默认Logger配置，使用自定义Logger时无效
+Log:
+  Output: ./output/log # 日志存放位置
+  Level: debug # 日志等级。debug, info, warn, error
+  MaxAge: 14 # 日志时效，单位: 天。超过有效期的日志将被清除，设置为0表示永久保留。
+  MaxSize: 100 # 最大单个日志文件体积，单位: Mb。
+
+# 拦截行为配置
+Forbidden:
+  ForbiddenAccountNotFound: false    # 禁止配置中不存在的多云厂商账号
+  ForbiddenProxyCredentialErr: false # 禁止错误的代理Access Key或代理Secret Key
+
+# 代理配置
+Endpoints:
+  - CloudAccountName: "<Cloud Account Name>" # 多云账号名
+    Vendor: "<Vendor Code>" # 云厂商code
+    Credentials:
+      Proxy: # 代理秘钥
+        AccessKey: "<Proxy Access Key>" # 自定义的代理Access Key，用于多云访问可信代理
+        SecretKey: "<Proxy Secret Key>" # 自定义的代理Secret Key，用于多云访问可信代理
+      Real: # 真实秘钥
+        AccessKey: "<Real Access Key>" # 云厂商Access Key，用于可信代理访问云厂商
+        SecretKey: "<Real Secret Key>" # 云厂商Secret Key，用于可信代理访问云厂商
