@@ -126,13 +126,13 @@ func (s *KeyProxy) RegisterHttp() error {
 func (s *KeyProxy) customizeRegister(r *gin.Engine) {
 	r.GET("/ping", handler.Ping)
 	{
-		providerService := service.GetProviderService()
 		p := new(httputil.ReverseProxy)
 		defaultTransport.MaxIdleConns = 200
 		defaultTransport.MaxConnsPerHost = 100
 		defaultTransport.MaxIdleConnsPerHost = 100
 		p.Transport = defaultTransport
 		p.Director = func(req *http.Request) {
+			providerService := service.GetProviderService()
 			providerService.ReformRequest(req.Context(), req)
 			logs.CtxInfo(req.Context(), "reformed request: %s", base.DumpHttpRequest(req))
 		}
