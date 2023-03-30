@@ -1,6 +1,6 @@
 # Http Server配置
 Http:
-  Address: ":4399" # 代理服务运行地址
+  Address: ":3888" # 代理服务运行地址
   Tls:
     Enabled: false # 是否开启HTTPS
     Address: ":443" # 启动HTTPS时，代理服务运行端口
